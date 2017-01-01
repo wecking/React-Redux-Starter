@@ -2,15 +2,20 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
+import configureStore from './store/configureStore.js';
+import {Provider} from 'react-redux';
 import {Router, browserHistory } from 'react-router';
+import {LoginUserAction} from './actions/LoginUserAction';
 import routes from './routes';
 import './styles/style.css';
+import "./styles/header.css";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-
+const store = configureStore();
+store.dispatch(LoginUserAction());
 render(
-  // <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />,
-  // </Provider>,
+  <Provider store={store}>
+    <Router history={browserHistory} routes={routes} />
+  </Provider>,
   document.getElementById('app')
 );
