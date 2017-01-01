@@ -3,6 +3,6 @@
  */
 import * as actionTypes from './actionTypes/User';
 
-export function LoginUserAction(user) {
+export function LoginAction(user) {
     return {type : actionTypes.Login_User , user: user};
 }

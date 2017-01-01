@@ -4,9 +4,9 @@
 
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {LoginUserAction} from '../../actions/LoginUserAction';
+import {LoginAction} from '../../actions/LoginUserAction';
 import {LoginForm} from './LoginForm';
-
+import {bindActionCreators} from 'redux';
 
 class LoginPage extends Component {
 
@@ -24,15 +24,13 @@ class LoginPage extends Component {
 
     login(e) {
         e.preventDefault();
-        console.log("king");
-        this.props.dispatch(LoginUserAction(this.state.user));
+        this.props.actions(this.state.user);
     }
 
     onUsernameChange(event){
         const user = this.state.user;
         user.username = event.target.value;
         this.setState({user: user});
-
     }
 
     users(user, index){
@@ -40,8 +38,8 @@ class LoginPage extends Component {
     }
 
     LoginForm() {
-        return <LoginForm
-            props={this} />;
+        return (<LoginForm
+            props={this} />);
     }
 
     render() {
@@ -55,8 +53,8 @@ class LoginPage extends Component {
 }
 
 LoginPage.propTypes = {
-    dispatch: PropTypes.func.required,
-    user: PropTypes.array.required
+    user: React.PropTypes.array,
+    actions: React.PropTypes.func
 };
 
 function mapStateToProps(state, ownProps) {
@@ -65,4 +63,10 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps)(LoginPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(LoginAction, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

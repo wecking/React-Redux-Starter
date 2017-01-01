@@ -54,7 +54,7 @@ export const LoginForm = ({props}) => {
 };
 
 LoginForm.propTypes = {
-    props: PropTypes.func.required,
-    login: PropTypes.func.required,
-    onUsernameChange: PropTypes.func.required
+    props: React.PropTypes.object,
+    login: React.PropTypes.func,
+    onUsernameChange: React.PropTypes.func
 };

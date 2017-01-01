@@ -18,8 +18,8 @@ class App extends React.Component {
     }
 }
 
-App.PropTypes = {
-    children: React.PropTypes.object.isRequired
+App.propTypes = {
+    children: React.PropTypes.object
 };
 
 export default App;
