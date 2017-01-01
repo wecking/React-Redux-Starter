@@ -5,6 +5,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {LoginUserAction} from '../../actions/LoginUserAction';
+import {LoginForm} from './LoginForm';
 
 
 class LoginPage extends Component {
@@ -23,6 +24,7 @@ class LoginPage extends Component {
 
     login(e) {
         e.preventDefault();
+        console.log("king");
         this.props.dispatch(LoginUserAction(this.state.user));
     }
 
@@ -30,67 +32,31 @@ class LoginPage extends Component {
         const user = this.state.user;
         user.username = event.target.value;
         this.setState({user: user});
+
     }
 
     users(user, index){
         return <div key={index}>{user.username}</div>;
     }
 
+    LoginForm() {
+        return <LoginForm
+            props={this} />;
+    }
+
     render() {
         return (
-            <div className="container">
-                <form className="form-signin">
-                    <h2 className="form-signin-heading">
-                        Please sign in
-                    </h2>
-                    {this.props.user.map(this.users)}
-                    <label
-                        htmlFor="inputEmail"
-                        className="sr-only">
-                            Email address
-                    </label>
-                    <input
-                        type="email"
-                        id="inputEmail"
-                        className="form-control"
-                        placeholder="Email address"
-                        required
-                        onChange={this.onUsernameChange}
-                        autoFocus/>
-                        <label
-                            htmlFor="inputPassword"
-                            className="sr-only">
-                                Password
-                        </label>
-                        <input
-                            type="password"
-                            id="inputPassword"
-                            className="form-control"
-                            placeholder="Password"
-                            required/>
-                            <div className="checkbox">
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        value="remember-me"/>
-                                    Remember me
-                                </label>
-                            </div>
-                            <button
-                                onClick={this.login}
-                                className="btn btn-lg btn-primary btn-block"
-                                type="submit">
-                                    Sign in
-                            </button>
-                </form>
+            <div>
+                {this.props.user.map(this.users)}
+                {this.LoginForm()}
             </div>
         );
     }
 }
 
 LoginPage.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    user: PropTypes.array.isRequired
+    dispatch: PropTypes.func.required,
+    user: PropTypes.array.required
 };
 
 function mapStateToProps(state, ownProps) {
